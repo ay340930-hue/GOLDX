@@ -185,22 +185,8 @@ npm run build
 
 ---
 
-## 7. Presentation Guide for Hackathon Judges (10 Steps)
 
-Click the **"Judge Demo Guide"** button in the top navigation bar to launch the interactive 10-step tour:
-1. **Overview:** Inspect the live KPI ribbon, active spread between `GOLDM` and `GOLDGUINEA`, and market status cards.
-2. **Data Import:** View the drag-and-drop ingestion interface and click *Download Validation Report* to examine row-level diagnostics.
-3. **Contract Explorer:** Compare MCX contract specifications and use the *Interactive Normalization Sandbox* to verify raw to normalized price conversions.
-4. **Relative Value:** Switch between contract pairs (e.g. `GOLDM` vs `GOLDGUINEA`), adjust the lookback window slider, and inspect the rolling Z-score corridor.
-5. **Anomaly Analysis:** Click any detected anomaly in the table to open the *8-Point Institutional Diagnostic Modal*.
-6. **Liquidity & Expiry:** Inspect volume, open interest, and near-expiry warnings (tender period alert when $\text{DTE} \le 5$).
-7. **Transaction Costs:** Adjust brokerage and slippage sliders to evaluate gross vs net spread feasibility.
-8. **Backtesting Lab:** Click *Run Walk-Forward Backtest* to simulate historical spreads chronologically without look-ahead bias.
-9. **Fold Stability & Ledger:** Review the *Chronological Fold Stability Matrix* and inspect the *Simulated Trade Ledger*.
-10. **Methodology:** Review mathematical proofs, official PS03 alignment, and responsible quantitative analytics disclosures.
 
----
-
-## 8. Responsible Analytics Disclaimer
+## 7. Responsible Analytics Disclaimer
 
 GOLDX is an explainable research prototype created for Hack in Hills '26 Problem Statement 03. It does not provide personalized investment advice or guaranteed market profit predictions. Market participants must assess executable liquidity, physical delivery obligations, and margin requirements independently.
