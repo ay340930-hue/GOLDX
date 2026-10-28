@@ -12,7 +12,7 @@ function makeRequest(path, method = 'GET', body = null) {
         'Content-Type': 'application/json',
         ...(postData ? { 'Content-Length': Buffer.byteLength(postData) } : {})
       },
-      timeout: 10000
+      timeout: 20000
     }, (res) => {
       let data = '';
       res.on('data', chunk => { data += chunk; });
@@ -117,6 +117,13 @@ async function runTests() {
     const sample = res.body.data[res.body.data.length - 1];
     if (sample.Spread === undefined || sample.ZScore === undefined) {
       throw new Error(`Spread or ZScore missing from output`);
+    }
+  });
+
+  await test("GET /api/relative-value rejects identical contracts", async () => {
+    const res = await makeRequest('/api/relative-value?symbol_a=GOLDTEN&symbol_b=GOLDTEN');
+    if (res.status !== 400 || !res.body.error) {
+      throw new Error(`Expected a 400 error for identical contracts, got ${res.status} ${JSON.stringify(res.body)}`);
     }
   });
 

@@ -1,0 +1,37 @@
+# Netlify Configuration for GOLDX — Explainable Gold Intelligence
+[build]
+  base = "frontend"
+  publish = "dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Optional Netlify Rewrite Proxy to deployed backend
+# Replace destination URL with your deployed backend URL on Render, Railway, etc.
+# Or set VITE_API_URL in Netlify Environment Variables.
+[[redirects]]
+  from = "/api/*"
+  to = "https://goldx-backend-mi81.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# SPA Routing: Route all client routes to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security and Asset Cache Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

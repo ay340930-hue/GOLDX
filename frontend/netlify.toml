@@ -1,0 +1,34 @@
+# Netlify Configuration inside frontend/ for Netlify UI deployments
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Reverse Proxy to Render Backend
+[[redirects]]
+  from = "/api/*"
+  to = "https://goldx-backend-mi81.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# SPA Client-Side Routing Fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

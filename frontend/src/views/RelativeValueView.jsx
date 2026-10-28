@@ -72,10 +72,10 @@ export default function RelativeValueView({ onNavigate, onSelectAnomaly }) {
               onChange={(e) => setSymbolA(e.target.value)}
               className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono min-w-36"
             >
-              <option value="GOLDM">GOLDM (Gold Mini)</option>
-              <option value="GOLDTEN">GOLDTEN (Gold 10g)</option>
-              <option value="GOLDGUINEA">GOLDGUINEA (Guinea)</option>
-              <option value="GOLDPETAL">GOLDPETAL (Petal)</option>
+              <option value="GOLDM" disabled={symbolB === 'GOLDM'}>GOLDM (Gold Mini)</option>
+              <option value="GOLDTEN" disabled={symbolB === 'GOLDTEN'}>GOLDTEN (Gold 10g)</option>
+              <option value="GOLDGUINEA" disabled={symbolB === 'GOLDGUINEA'}>GOLDGUINEA (Guinea)</option>
+              <option value="GOLDPETAL" disabled={symbolB === 'GOLDPETAL'}>GOLDPETAL (Petal)</option>
             </select>
           </div>
 
@@ -88,10 +88,10 @@ export default function RelativeValueView({ onNavigate, onSelectAnomaly }) {
               onChange={(e) => setSymbolB(e.target.value)}
               className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono min-w-36"
             >
-              <option value="GOLDGUINEA">GOLDGUINEA (Guinea)</option>
-              <option value="GOLDTEN">GOLDTEN (Gold 10g)</option>
-              <option value="GOLDM">GOLDM (Gold Mini)</option>
-              <option value="GOLDPETAL">GOLDPETAL (Petal)</option>
+              <option value="GOLDGUINEA" disabled={symbolA === 'GOLDGUINEA'}>GOLDGUINEA (Guinea)</option>
+              <option value="GOLDTEN" disabled={symbolA === 'GOLDTEN'}>GOLDTEN (Gold 10g)</option>
+              <option value="GOLDM" disabled={symbolA === 'GOLDM'}>GOLDM (Gold Mini)</option>
+              <option value="GOLDPETAL" disabled={symbolA === 'GOLDPETAL'}>GOLDPETAL (Petal)</option>
             </select>
           </div>
         </div>

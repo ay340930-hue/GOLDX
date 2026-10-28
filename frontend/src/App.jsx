@@ -53,6 +53,12 @@ export default function App() {
 
   useEffect(() => {
     checkHealth();
+    const interval = setInterval(checkHealth, 8000);
+    window.addEventListener('focus', checkHealth);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', checkHealth);
+    };
   }, []);
 
   const handleDatasetLoaded = (datasetRes) => {
@@ -124,9 +130,27 @@ export default function App() {
           </button>
 
           {/* System Status Pill */}
-          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-950 border border-slate-800 font-mono text-[10px] text-slate-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>API Online</span>
+          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-950 border border-slate-800 font-mono text-[10px]">
+            {systemHealth?.status === 'HEALTHY' ? (
+              <>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="text-emerald-400">API Online</span>
+              </>
+            ) : systemHealth?.status === 'OFFLINE' ? (
+              <button
+                onClick={checkHealth}
+                className="flex items-center gap-1.5 text-rose-400 hover:text-rose-300 transition-colors"
+                title="Backend disconnected. Click to recheck."
+              >
+                <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+                <span>API Offline (Retry)</span>
+              </button>
+            ) : (
+              <>
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                <span className="text-amber-400">Connecting...</span>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -222,6 +246,27 @@ export default function App() {
 
         {/* Main Content Viewport */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+          {systemHealth?.status === 'OFFLINE' && (
+            <div className="mb-5 p-4 rounded-xl bg-rose-950/70 border border-rose-500/40 text-rose-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg shadow-rose-950/20 backdrop-blur-sm">
+              <div className="flex items-start sm:items-center gap-2.5">
+                <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5 sm:mt-0" />
+                <div>
+                  <span className="font-semibold text-rose-100">Backend Server Disconnected:</span> Cannot reach the Node.js API on{' '}
+                  <code className="px-1.5 py-0.5 rounded bg-rose-900/60 font-mono text-rose-300">http://127.0.0.1:5000</code>.
+                  <div className="text-[11px] text-rose-300/80 mt-0.5">
+                    Start the backend in your terminal with: <code className="font-mono font-bold text-rose-200">cd backend && npm start</code>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={checkHealth}
+                className="px-3 py-1.5 rounded-lg bg-rose-800 hover:bg-rose-700 text-white font-semibold text-xs shrink-0 transition flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                Retry Connection
+              </button>
+            </div>
+          )}
           {currentView === 'overview' && (
             <OverviewView 
               onNavigate={setCurrentView}

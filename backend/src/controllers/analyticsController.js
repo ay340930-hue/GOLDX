@@ -17,6 +17,13 @@ async function getRelativeValue(req, res) {
     const symbol_b = req.query.symbol_b || 'GOLDTEN';
     const lookback_window = parseInt(req.query.lookback_window) || 30;
 
+    if (symbol_a === symbol_b) {
+      return res.status(400).json({
+        success: false,
+        error: 'Select two different contracts to calculate relative value.'
+      });
+    }
+
     const pyRes = await executeAnalytics('relative_value', {
       symbol_a,
       symbol_b,

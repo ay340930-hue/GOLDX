@@ -3,14 +3,17 @@ const mongoose = require('mongoose');
 let isConnected = false;
 
 async function connectDB() {
-  const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/goldx_intelligence';
+  let mongoUri = (process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/goldx_intelligence').trim();
+  if (mongoUri.endsWith('/')) {
+    mongoUri = `${mongoUri}goldx_intelligence?retryWrites=true&w=majority`;
+  }
   try {
     await mongoose.connect(mongoUri, {
-      serverSelectionTimeoutMS: 3000,
-      connectTimeoutMS: 3000
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000
     });
     isConnected = true;
-    console.log(`[GOLDX MongoDB] Connected successfully to ${mongoUri}`);
+    console.log(`[GOLDX MongoDB] Connected successfully to ${mongoUri.replace(/:[^:]*@/, ':****@')}`);
   } catch (err) {
     isConnected = false;
     console.warn(`[GOLDX MongoDB] Connection fallback: running in high-reliability in-memory / local mode (${err.message})`);

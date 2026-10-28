@@ -1,0 +1,5 @@
+# Netlify API Proxy Rewrite to live Render backend
+/api/*  https://goldx-backend-mi81.onrender.com/api/:splat  200!
+
+# Netlify SPA Client-Side Routing Fallback
+/*      /index.html                                     200
