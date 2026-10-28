@@ -1,0 +1,21 @@
+# Render.com Blueprint Specification for GOLDX
+services:
+  - type: web
+    name: goldx-backend
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
+      - key: PYTHON_PATH
+        value: python3
+      - key: PYTHON_VERSION_ARG
+        value: ""
+      - key: PYTHON_PORT
+        value: 5001
+      - key: MONGODB_URI
+        value: mongodb://127.0.0.1:27017/goldx_intelligence
